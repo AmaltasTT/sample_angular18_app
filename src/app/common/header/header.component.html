@@ -1,0 +1,52 @@
+<header [hidden]="tokenFromLocalStorage">
+    <div class="d-flex justify-content-between align-items-center">
+  
+      <div>
+        <a class="logo mouldlive-logo" style="cursor: pointer;" [attr.aria-label]="'Logo'" [routerLink]="['/controls']">
+            <img src="assets/images/logo.svg" alt="Logo"/>
+        </a>
+      </div>
+      
+      <div class="tabs" >
+        <a *ngFor="let item of manifoldTabs"   routerLinkActive="active" [routerLink]="[item.path]"
+          [hidden]="checkTemperatureFlow(item.label)">
+          {{ item.label }} 
+          <div class="line"></div>
+        </a>
+      </div>
+      
+      <div class="d-flex align-items-center gap-3">
+        <button class="pump-ready" >
+          Pump Ready
+        </button>
+        <input type="button" class="btn btn-success" value="Purge Water">
+        <!-- <button class="btn btn-style btn-outline-success" >Pump Ready </button> -->
+        <div class="dropdown flag-dropdown">
+          <button class="dropdown-toggle notranslate rig-button" 
+              type="button" id="dropdownProfile" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="assets/images/user.svg" alt="user"/>      userName  
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownProfile">
+            <li> 
+              <img src="assets/images/key.svg" width="20px" />
+              Change Password 
+            </li>
+            <li >
+              <a href="javascript:void(0);"  class="a-tag w-100" [routerLink]="['/mould']">
+                <img src="assets/images/settingicon.svg" width="20px" />
+                Settings   
+              </a>
+            </li>
+            <li>  
+              <a href="javascript:void(0);" (click)="logout()" class="a-tag w-100">
+                <img src="assets/images/logout.svg" width="20px" />
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    
+    </div>
+  </header>
+  

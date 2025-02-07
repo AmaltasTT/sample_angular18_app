@@ -1,0 +1,209 @@
+.mouldflow-setting {
+    padding: 20px 30px;
+
+    .setting-heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+
+        .mould-id {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+
+            label {
+                font-size: 16px;
+                color: #4E4E4E;
+            }
+            input {
+                height: 38px;
+                border: 1px solid #D1D1D1;
+                border-radius: 4px;
+            }
+        }
+
+        .limit {
+            display: flex;
+            gap: 8px;
+            color: #4E4E4E;
+            font-size: 16px;
+            align-items: center;
+
+            .limit-text {
+                background: #E1E1E1;
+                padding: 4px 12px 2px;
+                border-radius: 8px;
+                color: #4E4E4E;
+                text-transform: uppercase;
+                display: inline-flex;
+                align-items: center;
+            }
+        }
+        .seeting-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+    }
+}
+
+.card-box 
+{
+    box-shadow: 0px 12px 20px 0px #E0F3FD;
+    padding: 24px;
+    background-color: #fff;
+    border-radius: 8px;
+    .table 
+    {
+        margin: 0;
+        th, td 
+        {
+            padding: 8px 10px;
+            border-color: #D1D1D1;
+            vertical-align: middle;
+        }
+        th 
+        {
+            color: #4E4E4E;
+            font-size: 15px;
+            font-weight: 500;
+            height: 45px;
+            &:first-child 
+            {
+                text-align: center;
+            }
+        }
+        td 
+        {
+            color: #000000;
+            font-size: 17px;
+            &:first-child 
+            {
+                text-align: center;
+            }
+            
+        }
+    }
+
+    .form-check-input {
+        width: 24px;
+        height: 24px;
+        border-color: #D1D1D1;
+        background-color: #F3F3F3;
+        cursor: pointer;
+        &:checked
+        {
+            background-color: #0990D2;
+            border-color: #0990D2;
+        }
+    }
+    .form-select
+    {
+        border-color: #D1D1D1;
+        background-color: #F8F8F8;
+        font-size: 14px;
+        height: 38px;
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+.water-pump {
+    padding: 20px 0;
+    align-items: center;
+    
+    .water-pump-select {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 16px;
+        color: #4E4E4E;
+
+        label 
+        {
+            white-space: nowrap;
+        }
+        
+    }
+}
+.all-button  {
+    padding-top: 20px;
+    border-top: 1px solid #D1D1D1;
+}
+.card-steps 
+{
+    display: flex;
+    justify-content: center;
+    .card-steps-inner
+    { 
+        margin-bottom: 25px;
+        display: inline-flex;  
+        width: 100%; 
+        justify-content: space-between;
+        align-items: center;
+        .line-grow
+        {
+            flex: 1;
+            background-color: #0990D2;
+            height: 1px;
+            &.light-line
+            {
+                background-color: rgba(9, 144, 210, 0.07);
+            }
+        }
+        .card-step-btn
+        {
+            background-color: rgba(9, 144, 210, 0.05);
+            border: none;
+            border-radius: 100%; 
+            color: rgba(9, 144, 210, 0.40);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 16px;
+            justify-content: center;
+            padding: 0;
+            position: relative; 
+            z-index: 2;
+            &.active
+            {   
+                background-color: #0990D2;
+                color: #fff; 
+            }
+            .closeBtn {
+                position: absolute;
+                width: 15px;
+                height: 16px;
+                background: #fff;
+                align-items: center;
+                display: none;
+                justify-content: center;
+                background: red;
+                border-radius: 100%;
+                right: -7px;
+                top: -4px;
+                img 
+                {
+                    filter: brightness(0) invert(1);
+                    height: 8px;
+                }
+            }
+
+            &.lastBTN:hover 
+            {
+                .closeBtn
+                {
+                    display: flex;
+                }
+            }
+
+           
+        }
+    }
+}
+

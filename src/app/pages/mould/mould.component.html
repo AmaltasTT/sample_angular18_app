@@ -1,0 +1,216 @@
+<section class="mouldflow-setting">
+    <div class="container-fluid">
+        <div class="setting-heading">
+            <div class="mould-id">
+                <label>Mould ID:</label>
+                <input type="text" (blur)="updateRunElement('mould-id', $event)" [value]="stepperData.mould_name"/>
+                <label>ID:1</label>
+            </div>
+
+            <div class="limit">
+                Limit’s:
+                <span class="limit-text">
+                    Auto
+                </span>
+            </div>
+
+            <div class="seeting-right">
+                <button class="btn btn-default">
+                    Default
+                </button>
+                <button class="btn btn-primary btn-icon" (click)="toggleCommentSideBar()">
+                    <img src="assets/images/chat.svg" alt="chat" />
+                </button>
+            </div>
+        </div>
+        <div class="comment-sidebar" [ngClass]="{ 'hidden': isCommentSidebarVisible }">
+            <button (click)="toggleCommentSideBar()" class="crossBtn">
+                <img src="assets/images/close_small.svg" alt="close" />
+            </button>
+            <h4>Comments</h4>
+            <div class="comment-box">
+                <p>Nunc dapibus ullamcorper pretium. Nam sit amet lectus scelerisque lorem consequat luctus. Sed finibus
+                    lorem nec diam commodo aliquet.</p>
+
+                <div class="comment-form">
+
+                    <textarea placeholder="Add Comment" [(ngModel)]="commentText"></textarea>
+                    <button class="btn btn-primary" (click)="updateRunElement('comment', '')">Add</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-box" (click)="toggleCommentSideBar()" [ngClass]="{ 'active': isCommentSidebarVisible }">
+
+        </div>
+
+        <div class="card-box">
+            <div class="card-steps">
+                <div class="card-steps-inner">
+                    <span *ngFor="let run of stepperData.runs" class="flex-fill d-flex align-items-center">
+                        <button class="card-step-btn"
+                            [ngClass]="checkLastRun(run.run_id, stepperData.runs.length)"
+                            (click)="clickedRun = run.run_id">
+                            {{ run.run_id }}
+                            <div class="closeBtn" (click)="removeLastRun(run.run_id)">
+                                <img src="assets/images/close_small.svg" alt="close" />
+                            </div>
+                        </button>
+                        <div class="line-grow"></div>
+                    </span>
+                    <span class="flex-fill">
+                        <!-- <div class="line-grow light-line"></div> -->
+                        <button class="card-step-btn" (click)="addRun()">
+                            <img src="assets/images/add.svg" alt="add" />
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="card-data row">
+                <div class="col-md-6 pe-0 borderRight">
+                    <div *ngFor="let run of stepperData.runs" [hidden]="run.run_id != clickedRun">
+                        <!-- {{ run.run_id }} -->
+                        <div class="table-repsonsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th> ch </th>
+                                        <th> Instructions </th>
+                                        <th> Channel Settings </th>
+                                        <th> Diameter </th>
+                                        <th>
+                                            <div class="form-check">
+                                                <!-- <input class="form-check-input" type="checkbox" value="" 
+                                                    id="flexCheckChecked"> -->
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let channel of run.connection.slice(0, (run.connection.length/2))">
+                                        <td> {{ channel.channel_id }} </td>
+                                        <td>
+
+                                            <select class="form-select" aria-label="select example">
+                                                <option selected>Channel Name</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <ngx-slider [(value)]="channel.channel_low_limit"
+                                                [(highValue)]="channel.channel_upper_limit"
+                                                [options]="options" (userChangeEnd)="updateRunElement('slider', channel,{ 'runId': run.run_id})"></ngx-slider>
+                                        </td>
+                                        <td>
+                                            <select class="form-select" aria-label="select example" [(ngModel)]="channel.channel_diameter">
+                                                <option value="square">Square</option>
+                                                <option value="circle">Circle</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" (change)="updateRunElement('channel-enable', $event, {'runId': run.run_id, 'channelId': channel.channel_id})"
+                                                    id="flexCheckChecked" [checked]="channel.channel_enable">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6 ps-0">
+                    <div *ngFor="let run of stepperData.runs" [hidden]="run.run_id != clickedRun">
+                        <!-- {{ run.run_id }} -->
+                        <div class="table-repsonsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th> ch </th>
+                                        <th> Instructions </th>
+                                        <th> Channel Settings </th>
+                                        <th> Diameter </th>
+                                        <th>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                    id="flexCheckChecked"
+                                                    (change)="updateRunElement('enable-all', $event, {'runId': run.run_id})"
+                                                    [checked]="run.enable_all">
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let channel of run.connection.slice(run.connection.length/2)">
+                                        <td> {{ channel.channel_id }} </td>
+                                        <td>
+                                            <select class="form-select" aria-label="select example">
+                                                <option selected>Channel Name</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <ngx-slider [(value)]="channel.channel_low_limit"
+                                                [(highValue)]="channel.channel_upper_limit"
+                                                [options]="options" (userChangeEnd)="updateRunElement('slider', channel,{ 'runId': run.run_id})"></ngx-slider>
+                                        </td>
+                                        <td>
+                                            <select class="form-select" aria-label="select example" [(ngModel)]="channel.channel_diameter" (change)="updateRunElement('channel-diameter', $event, {'runId': run.run_id})">
+                                                <option value="square">Square</option>
+                                                <option value="circle">Circle</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" (change)="updateRunElement('channel-enable', $event, {'runId': run.run_id, 'channelId': channel.channel_id})"
+                                                    id="flexCheckChecked" [checked]="channel.channel_enable">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="water-pump d-flex justify-content-between gap-2">
+                <div class="water-pump-select  col-sm-6">
+                    <label>Pressure Set Value:</label>
+                    <select class="form-select" aria-label="select example" [(ngModel)]="selectedPressureValue" (change)="onPressureTempChange($event, 'pressure')">
+                        <option *ngFor="let value of pressureSetRange" (selected)="1.10" [value]="value"> {{ value }}</option>
+                    </select>
+                </div>
+
+                <div class="d-flex gap-2 col-sm-6 justify-content-end">
+                        <div class="water-pump-select w-100 justify-content-end">
+                            <label>Temperature Set Value:</label>
+                            <select class="form-select" aria-label="select example" [(ngModel)]="selectedTempValue">
+                                <option *ngFor="let value of pressureSetRange" [value]="value"> {{ value }}</option>
+                            </select>
+                            <img src="assets/images/pump.svg" alt="pump" />
+                        </div>
+                    <button class="btn btn-primary ms-4" (click)="startMouldTest()" [ngClass]="!testSaved ? ' opacity-75' : ''">Start</button>
+                </div>
+            </div>
+
+            <div class="all-button d-flex align-items-center justify-content-between gap-2">
+                <button class="btn btn-green ">
+                    <img src="assets/images/cached.svg" alt="refresh" />
+                    Load</button>
+
+                <div class="d-flex gap-4">
+                    <button class="btn btn-bordered" (click)="onTabChange('previous')">Previous</button>
+                    <button class="btn btn-primary" *ngIf="stepperData.runs.length !== clickedRun" (click)="onTabChange('next')">Next</button>
+                    <button class="btn btn-primary" *ngIf="stepperData.runs.length == clickedRun" (click)="saveBtnUpdateSchema('save')">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

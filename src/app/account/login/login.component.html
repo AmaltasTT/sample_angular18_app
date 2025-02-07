@@ -1,0 +1,23 @@
+<section class="login-module">
+    <div class="container"> 
+            <div class="card-box">
+                <div class="head text-center mb-4">
+                    <img src="assets/images/logo.svg" alt="logo" width="150px" class="mb-4">
+                    <h4 class="mb-3">Welcome</h4>
+                </div>
+                   
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                    <div class="form-floating mb-4">
+                      <input type="text" class="form-control" id="floatingInput" placeholder="username" formControlName="email">
+                      <label for="floatingInput">Username</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                      <input type="password" class="form-control" id="floatingPassword"  placeholder="Password" formControlName="password">
+                      <label for="floatingPassword"> Password</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Continue</button>
+        
+                </form>
+            </div> 
+    </div>
+</section>
